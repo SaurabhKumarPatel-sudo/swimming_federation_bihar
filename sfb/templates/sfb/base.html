@@ -1,0 +1,445 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bihar Swimming Association</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'sfb/css/styles.css' %}">
+</head>
+<body class="bg-white text-gray-900">
+    <!-- Navbar -->
+    <nav class="bg-blue-600 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="{% static 'sfb/images/logo.png' %}" alt="SFB Logo" class="h-12 w-auto mr-3">
+            <h1 class="text-2xl font-bold">Bihar Swimming Association</h1>
+            </div>
+            <ul class="flex space-x-6 items-center">
+                <li><a href="{% url 'main_page' %}#home" class="hover:underline">Home</a></li>
+                <li><a href="{% url 'main_page' %}#events" class="hover:underline">Events</a></li>
+                <!-- Discipline Dropdown -->
+                <li class="relative group">
+                    <a href="#" class="hover:underline flex items-center">Discipline
+                        <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </a>
+                    <ul class="absolute left-0 mt-2 w-48 bg-white text-blue-600 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-50">
+                        <li><a href="{% url 'discipline_swimming' %}" class="block px-4 py-2 hover:bg-blue-100">Swimming</a></li>
+                        <li><a href="{% url 'discipline_masters_swimming' %}" class="block px-4 py-2 hover:bg-blue-100">Masters Swimming</a></li>
+                        <li><a href="{% url 'discipline_synchronized_swimming' %}" class="block px-4 py-2 hover:bg-blue-100">Synchronized Swimming</a></li>
+                        <li><a href="{% url 'discipline_diving' %}" class="block px-4 py-2 hover:bg-blue-100">Diving</a></li>
+                        <li><a href="{% url 'discipline_high_diving' %}" class="block px-4 py-2 hover:bg-blue-100">High Diving</a></li>
+                        <li><a href="{% url 'discipline_water_polo' %}" class="block px-4 py-2 hover:bg-blue-100">Water Polo</a></li>
+                    </ul>
+                </li>
+                <li><a href="{% url 'main_page' %}#records" class="hover:underline">Records</a></li>
+                <li><a href="{% url 'main_page' %}#rules" class="hover:underline">Rules</a></li>
+                <li><a href="{% url 'main_page' %}#gallery" class="hover:underline">Gallery</a></li>
+                <li><a href="{% url 'main_page' %}#about" class="hover:underline">About</a></li>
+                <li><a href="{% url 'main_page' %}#contact" class="hover:underline">Contact</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'profile' %}" class="hover:underline">Profile</a></li>
+                    <li>
+                        <form action="{% url 'logout' %}" method="post" class="inline">
+                            {% csrf_token %}
+                            <button type="submit" class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'registration_choice' %}" class="hover:underline">Register</a></li>
+                    <li><a href="{% url 'login' %}" class="bg-white text-blue-600 px-3 py-1 rounded hover:bg-gray-200">Login</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-blue-50 to-blue-100 py-20 relative overflow-hidden">
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Content -->
+                <div class="text-left">
+                    <p class="text-blue-600 font-semibold mb-4">— BIHAR'S PREMIER AQUATIC FEDERATION</p>
+                    <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+                        Where Champions<br>
+                        <span class="text-blue-600">Take the Plunge</span>
+                    </h1>
+                    <p class="text-xl text-gray-700 mb-8 leading-relaxed">
+                        Experience the thrill of discovering aquatic excellence that matches your passion. Whether you're an athlete, a coach, or someone who loves being part of something meaningful. BSA is your place to connect, compete, and celebrate swimming achievements.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 mb-8">
+                        <a href="#events" class="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors duration-300 text-lg text-center">
+                            Explore Events →
+                        </a>
+                        <a href="{% url 'registration_choice' %}" class="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-blue-50 transition-colors duration-300 text-lg text-center">
+                            Register Now →
+                        </a>
+                    </div>
+                    <div class="flex space-x-8 text-center">
+                        <div class="bg-white rounded-lg p-4 shadow-md">
+                            <div class="text-2xl font-bold text-blue-600">500+</div>
+                            <div class="text-gray-600">Athletes</div>
+                        </div>
+                        <div class="bg-white rounded-lg p-4 shadow-md">
+                            <div class="text-2xl font-bold text-blue-600">25</div>
+                            <div class="text-gray-600">Events</div>
+                        </div>
+                        <div class="bg-white rounded-lg p-4 shadow-md">
+                            <div class="text-2xl font-bold text-blue-600">50+</div>
+                            <div class="text-gray-600">Coaches</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Images -->
+                <div class="relative">
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Main Hero Image -->
+                        <div class="col-span-2">
+                            <img src="{% static 'sfb/images/hero.png' %}" alt="Swimming Champion" class="w-full h-80 object-cover rounded-lg shadow-lg">
+                        </div>
+                        <!-- Side Images -->
+                        <div>
+                            <img src="{% static 'sfb/images/hero1.png' %}" alt="Swimming Training" class="w-full h-36 object-cover rounded-lg shadow-lg">
+                        </div>
+                        <div>
+                            <img src="{% static 'sfb/images/hero2.png' %}" alt="Swimming Competition" class="w-full h-36 object-cover rounded-lg shadow-lg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Background Decorative Elements -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-blue-200 rounded-full opacity-20 -translate-y-48 translate-x-48"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-blue-300 rounded-full opacity-20 translate-y-32 -translate-x-32"></div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container mx-auto py-8">
+    <!-- Home Section -->
+        <section id="home" class="bg-gray-100 py-12 text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4">Welcome to SFB</h2>
+        <p class="text-lg mb-6">The Bihar Swimming Association (SFB) is the governing body for aquatic sports in Bihar, promoting swimming, diving, water polo, and more.</p>
+        <p class="text-md">Latest News: Bihar State Swimming Championship scheduled for August 2025 in Patna!</p>
+    </section>
+
+    <!-- Events Section -->
+        <section id="events" class="py-12 mb-12">
+        <h2 class="text-3xl font-bold mb-6 text-center">Events</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {% for event in events %}
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold">{{ event.name }}</h3>
+                        <p><strong>Date:</strong> {{ event.date }}</p>
+                        <p><strong>Location:</strong> {{ event.location }}</p>
+                        <p>{{ event.description|truncatewords:20 }}</p>
+                        <a href="#" class="text-blue-600 hover:underline">View Details</a>
+                    </div>
+                {% empty %}
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold">Bihar State Swimming Championship</h3>
+                        <p><strong>Date:</strong> August 15-20, 2025</p>
+                        <p><strong>Location:</strong> Patna Swimming Complex</p>
+                        <p>Annual state-level swimming competition featuring various age groups and categories.</p>
+                        <a href="#" class="text-blue-600 hover:underline">View Details</a>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold">National Swimming Trials</h3>
+                        <p><strong>Date:</strong> September 10-12, 2025</p>
+                        <p><strong>Location:</strong> Patna Sports Complex</p>
+                        <p>Selection trials for national swimming competitions and international events.</p>
+                        <a href="#" class="text-blue-600 hover:underline">View Details</a>
+                    </div>
+                {% endfor %}
+        </div>
+    </section>
+
+    <!-- Records Section -->
+        <section id="records" class="py-12 mb-12">
+        <h2 class="text-3xl font-bold mb-6 text-center">Records</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full bg-white rounded-lg shadow-md">
+                    <thead>
+                        <tr class="bg-blue-600 text-white">
+                            <th class="p-3">Event</th>
+                            <th class="p-3">Athlete</th>
+                            <th class="p-3">Time</th>
+                            <th class="p-3">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in records %}
+                            <tr class="border-t">
+                                <td class="p-3">{{ record.event }}</td>
+                                <td class="p-3">{{ record.athlete }}</td>
+                                <td class="p-3">{{ record.time }}</td>
+                                <td class="p-3">{{ record.date }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr class="border-t">
+                                <td class="p-3">50m Freestyle</td>
+                                <td class="p-3">Rahul Kumar</td>
+                                <td class="p-3">24.5s</td>
+                                <td class="p-3">2024-12-15</td>
+                            </tr>
+                            <tr class="border-t">
+                                <td class="p-3">100m Breaststroke</td>
+                                <td class="p-3">Priya Singh</td>
+                                <td class="p-3">1:15.2</td>
+                                <td class="p-3">2024-11-20</td>
+                            </tr>
+                            <tr class="border-t">
+                                <td class="p-3">200m Butterfly</td>
+                                <td class="p-3">Amit Sharma</td>
+                                <td class="p-3">2:08.7</td>
+                                <td class="p-3">2024-10-10</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+    </section>
+
+    <!-- Rules Section -->
+        <section id="rules" class="py-12 mb-12">
+        <h2 class="text-3xl font-bold mb-6 text-center">Rules & Policies</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <h3 class="text-xl font-semibold mb-4">Competition Rules</h3>
+                <p>All events follow the rules set by the Swimming Federation of India and World Aquatics.</p>
+                <h3 class="text-xl font-semibold mt-6 mb-4">Anti-Doping Policy</h3>
+                <p>SFB adheres to the anti-doping policies of the National Anti-Doping Agency (NADA).</p>
+                <h3 class="text-xl font-semibold mt-6 mb-4">Age Categories</h3>
+                <ul class="list-disc pl-6">
+                    <li>Under 12 years</li>
+                    <li>12-14 years</li>
+                    <li>15-17 years</li>
+                    <li>18+ years</li>
+                </ul>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+        <section id="gallery" class="py-12 mb-12">
+        <h2 class="text-2xl font-bold mb-4 text-center">Media Gallery</h2>
+            <p class="mb-8 text-center">Showcasing swimming events and achievements from across Bihar</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <img src="{% static 'sfb/images/1.png' %}" alt="Gallery Image 1" class="rounded shadow-lg w-full h-64 object-cover">
+                <img src="{% static 'sfb/images/2.png' %}" alt="Gallery Image 2" class="rounded shadow-lg w-full h-64 object-cover">
+                <img src="{% static 'sfb/images/3.png' %}" alt="Gallery Image 3" class="rounded shadow-lg w-full h-64 object-cover">
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-12 mb-12">
+            <h2 class="text-3xl font-bold mb-6 text-center">About Us</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <p>The Bihar Swimming Association (SFB), established in 1975, is the governing body for aquatic sports in Bihar, affiliated with the Swimming Federation of India.</p>
+                <h3 class="text-xl font-semibold mt-6 mb-4">Office Bearers</h3>
+                <ul class="list-disc pl-6">
+                    <li>President: Mr. Rajesh Kumar</li>
+                    <li>Secretary: Ms. Anjali Sharma</li>
+                    <li>Treasurer: Mr. Sanjay Verma</li>
+                    <li>Vice President: Dr. Meera Patel</li>
+                </ul>
+                <h3 class="text-xl font-semibold mt-6 mb-4">Our Mission</h3>
+                <p>To promote and develop swimming and aquatic sports in Bihar, identify and nurture talent, and represent the state at national and international levels.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+        <section id="contact" class="py-12 mb-12">
+        <h2 class="text-3xl font-bold mb-6 text-center">Contact Us</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Get in Touch</h3>
+                    <p><strong>Address:</strong> 123, Sports Complex, Patna, Bihar - 800001</p>
+                    <p><strong>Email:</strong> contact@sfb.org.in</p>
+                    <p><strong>Phone:</strong> +91 1234567890</p>
+                    <p><strong>Office Hours:</strong> Monday - Friday, 9:00 AM - 6:00 PM</p>
+                </div>
+                <form method="POST" class="bg-white p-6 rounded-lg shadow-md">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label class="block text-gray-700">Name</label>
+                        <input type="text" name="name" required class="w-full p-2 border rounded">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700">Email</label>
+                        <input type="email" name="email" required class="w-full p-2 border rounded">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700">Message</label>
+                        <textarea name="message" required class="w-full p-2 border rounded"></textarea>
+                    </div>
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Send</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-blue-900 text-white relative overflow-hidden">
+        <!-- Background Wave Pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <svg class="w-full h-full" viewBox="0 0 1200 200" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,100 C300,50 600,150 1200,100 L1200,200 L0,200 Z" fill="currentColor"/>
+            </svg>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <!-- Top Section -->
+            <div class="py-12">
+                <div class="grid md:grid-cols-4 gap-8">
+                    <!-- Logo Column -->
+                    <div class="text-center md:text-left">
+                        <div class="inline-block mb-4">
+                            <img src="{% static 'sfb/images/logo.png' %}" alt="SFB Logo" class="w-24 h-24 rounded-full border-4 border-white bg-white object-contain">
+                        </div>
+                    </div>
+
+                    <!-- Contact Info Column -->
+                    <div>
+                        <h3 class="text-white font-bold uppercase mb-4">Contact Info</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-start space-x-3">
+                                <svg class="w-5 h-5 text-white mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                                </svg>
+                                <div class="text-sm">
+                                    <div>Bihar Swimming Association</div>
+                                    <div>123, Sports Complex, Patna,</div>
+                                    <div>Bihar - 800001, India</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                                </svg>
+                                <span class="text-sm">(O) 0612 1234567</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <svg class="w-5 h-5 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                                </svg>
+                                <span class="text-sm">contact@sfb.org.in</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Menus Column -->
+                    <div>
+                        <h3 class="text-white font-bold uppercase mb-4">Menus</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center space-x-2">
+                                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <a href="#about" class="text-sm hover:text-blue-300 transition-colors">About Us</a>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <a href="#rules" class="text-sm hover:text-blue-300 transition-colors">Rules & Policies</a>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <a href="#events" class="text-sm hover:text-blue-300 transition-colors">Events & Results</a>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                <a href="{% url 'registration_choice' %}" class="text-sm hover:text-blue-300 transition-colors">Athlete Registration</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Location Column -->
+                    <div>
+                        <h3 class="text-white font-bold uppercase mb-4">Location</h3>
+                        <div class="bg-white rounded-lg overflow-hidden shadow-lg">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3597.5!2d85.1376!3d25.5941!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f29937c52d4f05%3A0x831a0e05f607b270!2sPatna%2C%20Bihar!5e0!3m2!1sen!2sin!4v1234567890"
+                                width="100%" 
+                                height="150" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Red Divider Line -->
+            <div class="border-t border-red-500"></div>
+
+            <!-- Bottom Section -->
+            <div class="py-6">
+                <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                    <!-- Copyright -->
+                    <div class="text-sm">
+                        ©Copyright @2025 All rights Reserved | Bihar Swimming Association
+                    </div>
+
+                    <!-- Site Visit Counter -->
+                    <div class="text-center">
+                        <div class="text-sm uppercase mb-2">Total Site Visit</div>
+                        <div class="bg-white text-red-600 font-bold text-xl px-4 py-2 rounded border-2 border-white">
+                            1,247
+                        </div>
+                    </div>
+
+                    <!-- Social Media & Back to Top -->
+                    <div class="flex items-center space-x-4">
+                        <div class="text-center">
+                            <div class="text-sm mb-2">Follow Us</div>
+                            <div class="flex space-x-2">
+                                <a href="#" class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                                    </svg>
+                                </a>
+                                <a href="#" class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                    </svg>
+                                </a>
+                                <a href="#" class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.746-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001 12.017.001z"/>
+                                    </svg>
+                                </a>
+                                <a href="#" class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                    </svg>
+                                </a>
+                            </div>
+        </div>
+                        
+                        <!-- Back to Top Button -->
+                        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-red-600 text-white px-4 py-2 rounded-t-lg hover:bg-red-700 transition-colors flex items-center space-x-2">
+                            <div class="text-center">
+                                <div class="text-xs">Back</div>
+                                <div class="text-xs">To Top</div>
+                            </div>
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M3.293 9.707a1 1 0 010-1.414l6-6a1 1 0 011.414 0l6 6a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L4.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="{% static 'sfb/js/scripts.js' %}"></script>
+</body>
+</html>

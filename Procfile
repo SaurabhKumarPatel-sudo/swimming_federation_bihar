@@ -1,0 +1,1 @@
+web: gunicorn swimming_federation_bihar.wsgi

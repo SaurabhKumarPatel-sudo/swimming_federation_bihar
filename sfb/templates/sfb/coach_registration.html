@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coach Registration - Bihar Swimming Association</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'sfb/css/styles.css' %}">
+</head>
+<body class="bg-white text-gray-900">
+    <!-- Navbar -->
+    <nav class="bg-blue-600 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="{% static 'sfb/images/logo.png' %}" alt="SFB Logo" class="h-12 w-auto mr-3">
+                <h1 class="text-2xl font-bold">Bihar Swimming Association</h1>
+            </div>
+            <ul class="flex space-x-6 items-center">
+                <li><a href="{% url 'main_page' %}" class="hover:underline">Back to Home</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto py-8">
+        <section class="py-12">
+            <h2 class="text-3xl font-bold mb-6 text-center scroll-animate">Coach Registration</h2>
+            <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-md form-container scroll-animate">
+                 <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-6" role="alert">
+                    <p class="font-bold">Please keep the following documents ready before you start!</p>
+                    <p>(Accepted files are .png, .jpg, .jpeg, .pdf. Max Size: 5MB)</p>
+                    <ul class="list-disc list-inside mt-2">
+                        <li>Photograph (Passport Size, Only .png, .jpg, .jpeg)</li>
+                        <li>ID Proof (AADHAR Card, PAN Card, Passport)</li>
+                        <li>DOB Proof (Birth Certificate, Passport)</li>
+                        <li>Address Proof (Voter ID, AADHAR Card-Backside, Passport)</li>
+                        <li>Coaching Certificate (FINA, ASCA, NIS, Others)</li>
+                    </ul>
+                    <p class="mt-2">Coaching Level Certificates (FINA, ASCA, NIS, Others) are required.</p>
+                </div>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% if user_form.errors or profile_form.errors %}
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 animate-pulse">
+                            Please correct the errors below.
+                        </div>
+                    {% endif %}
+                    <fieldset class="border p-4 rounded-md mb-6">
+                        <legend class="text-xl font-semibold px-2">Coach Information</legend>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- First Name -->
+                            <div class="mb-6 relative">
+                                <input type="text" name="first_name" id="id_first_name" class="form-input w-full peer" placeholder=" " value="{{ user_form.first_name.value|default:'' }}"/>
+                                <label for="id_first_name" class="absolute left-3 top-3 text-gray-500 duration-300 transform -translate-y-2 scale-90 origin-[0] peer-focus:-translate-y-5 peer-focus:scale-90 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 pointer-events-none bg-white px-1">First Name</label>
+                                {% if user_form.first_name.errors %}
+                                    <span class="text-red-600 text-sm animate-pulse">{{ user_form.first_name.errors|striptags }}</span>
+                                {% endif %}
+                            </div>
+                            <!-- Last Name -->
+                            <div class="mb-6 relative">
+                                <input type="text" name="last_name" id="id_last_name" class="form-input w-full peer" placeholder=" " value="{{ user_form.last_name.value|default:'' }}"/>
+                                <label for="id_last_name" class="absolute left-3 top-3 text-gray-500 duration-300 transform -translate-y-2 scale-90 origin-[0] peer-focus:-translate-y-5 peer-focus:scale-90 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 pointer-events-none bg-white px-1">Last Name</label>
+                                {% if user_form.last_name.errors %}
+                                    <span class="text-red-600 text-sm animate-pulse">{{ user_form.last_name.errors|striptags }}</span>
+                                {% endif %}
+                            </div>
+                            <!-- Middle Name -->
+                            <div class="mb-6 relative">
+                                <input type="text" name="middle_name" id="id_middle_name" class="form-input w-full peer" placeholder=" " value="{{ profile_form.middle_name.value|default:'' }}"/>
+                                <label for="id_middle_name" class="absolute left-3 top-3 text-gray-500 duration-300 transform -translate-y-2 scale-90 origin-[0] peer-focus:-translate-y-5 peer-focus:scale-90 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 pointer-events-none bg-white px-1">Middle Name</label>
+                                {% if profile_form.middle_name.errors %}
+                                    <span class="text-red-600 text-sm animate-pulse">{{ profile_form.middle_name.errors|striptags }}</span>
+                                {% endif %}
+                            </div>
+                            <!-- Mobile Number -->
+                            <div class="mb-6 relative">
+                                <input type="text" name="mobile_number" id="id_mobile_number" class="form-input w-full peer" placeholder=" " value="{{ profile_form.mobile_number.value|default:'' }}"/>
+                                <label for="id_mobile_number" class="absolute left-3 top-3 text-gray-500 duration-300 transform -translate-y-2 scale-90 origin-[0] peer-focus:-translate-y-5 peer-focus:scale-90 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 pointer-events-none bg-white px-1">Mobile Number</label>
+                                {% if profile_form.mobile_number.errors %}
+                                    <span class="text-red-600 text-sm animate-pulse">{{ profile_form.mobile_number.errors|striptags }}</span>
+                                {% endif %}
+                            </div>
+                            <!-- Re-enter Mobile Number -->
+                            <div class="mb-6 relative">
+                                <input type="text" name="mobile_number2" id="id_mobile_number2" class="form-input w-full peer" placeholder=" " value="{{ user_form.mobile_number2.value|default:'' }}"/>
+                                <label for="id_mobile_number2" class="absolute left-3 top-3 text-gray-500 duration-300 transform -translate-y-2 scale-90 origin-[0] peer-focus:-translate-y-5 peer-focus:scale-90 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 pointer-events-none bg-white px-1">Re-enter Mobile Number</label>
+                                {% if user_form.mobile_number2.errors %}
+                                    <span class="text-red-600 text-sm animate-pulse">{{ user_form.mobile_number2.errors|striptags }}</span>
+                                {% endif %}
+                            </div>
+                            <!-- Email -->
+                            <div class="mb-6 relative">
+                                <input type="email" name="email" id="id_email" class="form-input w-full peer" placeholder=" " value="{{ user_form.email.value|default:'' }}"/>
+                                <label for="id_email" class="absolute left-3 top-3 text-gray-500 duration-300 transform -translate-y-2 scale-90 origin-[0] peer-focus:-translate-y-5 peer-focus:scale-90 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 pointer-events-none bg-white px-1">Email</label>
+                                {% if user_form.email.errors %}
+                                    <span class="text-red-600 text-sm animate-pulse">{{ user_form.email.errors|striptags }}</span>
+                                {% endif %}
+                            </div>
+                            <!-- Re-enter Email -->
+                            <div class="mb-6 relative">
+                                <input type="email" name="email2" id="id_email2" class="form-input w-full peer" placeholder=" " value="{{ user_form.email2.value|default:'' }}"/>
+                                <label for="id_email2" class="absolute left-3 top-3 text-gray-500 duration-300 transform -translate-y-2 scale-90 origin-[0] peer-focus:-translate-y-5 peer-focus:scale-90 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 pointer-events-none bg-white px-1">Re-enter Email</label>
+                                {% if user_form.email2.errors %}
+                                    <span class="text-red-600 text-sm animate-pulse">{{ user_form.email2.errors|striptags }}</span>
+                                {% endif %}
+                            </div>
+                            <!-- Username -->
+                            <div class="mb-6 relative">
+                                <input type="text" name="username" id="id_username" class="form-input w-full peer" placeholder=" " value="{{ user_form.username.value|default:'' }}"/>
+                                <label for="id_username" class="absolute left-3 top-3 text-gray-500 duration-300 transform -translate-y-2 scale-90 origin-[0] peer-focus:-translate-y-5 peer-focus:scale-90 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 pointer-events-none bg-white px-1">Username</label>
+                                {% if user_form.username.errors %}
+                                    <span class="text-red-600 text-sm animate-pulse">{{ user_form.username.errors|striptags }}</span>
+                                {% endif %}
+                            </div>
+                            <!-- Father's Name -->
+                            <div class="mb-6 relative">
+                                <input type="text" name="father_name" id="id_father_name" class="form-input w-full peer" placeholder=" " value="{{ profile_form.father_name.value|default:'' }}"/>
+                                <label for="id_father_name" class="absolute left-3 top-3 text-gray-500 duration-300 transform -translate-y-2 scale-90 origin-[0] peer-focus:-translate-y-5 peer-focus:scale-90 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 pointer-events-none bg-white px-1">Father's Name</label>
+                                {% if profile_form.father_name.errors %}
+                                    <span class="text-red-600 text-sm animate-pulse">{{ profile_form.father_name.errors|striptags }}</span>
+                                {% endif %}
+                            </div>
+                            <!-- Mother's Name -->
+                            <div class="mb-6 relative">
+                                <input type="text" name="mother_name" id="id_mother_name" class="form-input w-full peer" placeholder=" " value="{{ profile_form.mother_name.value|default:'' }}"/>
+                                <label for="id_mother_name" class="absolute left-3 top-3 text-gray-500 duration-300 transform -translate-y-2 scale-90 origin-[0] peer-focus:-translate-y-5 peer-focus:scale-90 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 pointer-events-none bg-white px-1">Mother's Name</label>
+                                {% if profile_form.mother_name.errors %}
+                                    <span class="text-red-600 text-sm animate-pulse">{{ profile_form.mother_name.errors|striptags }}</span>
+                                {% endif %}
+                            </div>
+                            <!-- Render the rest of the fields -->
+                            {% for field in user_form.visible_fields %}
+                                {% if field.name != 'first_name' and field.name != 'last_name' and field.name != 'email' and field.name != 'email2' and field.name != 'mobile_number2' and field.name != 'username' %}
+                                <div class="mb-6 relative">
+                                    <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="id_{{ field.name }}" class="form-input w-full peer" placeholder=" " value="{{ field.value|default:'' }}"/>
+                                    <label for="id_{{ field.name }}" class="absolute left-3 top-3 text-gray-500 duration-300 transform -translate-y-2 scale-90 origin-[0] peer-focus:-translate-y-5 peer-focus:scale-90 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 pointer-events-none bg-white px-1">{{ field.label }}</label>
+                                    {% if field.errors %}
+                                        <span class="text-red-600 text-sm animate-pulse">{{ field.errors|striptags }}</span>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                            {% for field in profile_form.visible_fields %}
+                                {% if field.name != 'middle_name' and field.name != 'mobile_number' and field.name != 'father_name' and field.name != 'mother_name' %}
+                                <div class="mb-6 relative">
+                                    <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="id_{{ field.name }}" class="form-input w-full peer" placeholder=" " value="{{ field.value|default:'' }}"/>
+                                    <label for="id_{{ field.name }}" class="absolute left-3 top-3 text-gray-500 duration-300 transform -translate-y-2 scale-90 origin-[0] peer-focus:-translate-y-5 peer-focus:scale-90 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 pointer-events-none bg-white px-1">{{ field.label }}</label>
+                                    {% if field.errors %}
+                                        <span class="text-red-600 text-sm animate-pulse">{{ field.errors|striptags }}</span>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </fieldset>
+                    <div class="text-center">
+                        <button type="submit" class="btn-primary text-white px-6 py-3 rounded-lg mt-2">Register</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-blue-800 text-white text-center py-6 mt-8">
+        <div>
+            <p>&copy; 2025 Bihar Swimming Association. All rights reserved.</p>
+            <p>Contact: 123, Sports Complex, Patna, Bihar - 800001. | (O) 0612 1234567 | contact@sfb.org.in</p>
+        </div>
+    </footer>
+    <script src="{% static 'sfb/js/scripts.js' %}"></script>
+</body>
+</html>

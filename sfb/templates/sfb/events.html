@@ -1,0 +1,21 @@
+
+{% extends 'sfb/base.html' %}
+{% block title %}Events - SFB{% endblock %}
+{% block content %}
+    <section class="py-12">
+        <h2 class="text-3xl font-bold mb-6 text-center">Events</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {% for event in events %}
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold">{{ event.name }}</h3>
+                    <p><strong>Date:</strong> {{ event.date }}</p>
+                    <p><strong>Location:</strong> {{ event.location }}</p>
+                    <p>{{ event.description|truncatewords:20 }}</p>
+                    <a href="#" class="text-blue-600 hover:underline">View Details</a>
+                </div>
+            {% empty %}
+                <p class="text-center">No events available.</p>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

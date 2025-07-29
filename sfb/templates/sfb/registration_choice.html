@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Registration Type - Bihar Swimming Association</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'sfb/css/styles.css' %}">
+</head>
+<body class="bg-white text-gray-900">
+    <!-- Navbar -->
+    <nav class="bg-blue-600 text-white p-4 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center">
+                <img src="{% static 'sfb/images/logo.png' %}" alt="SFB Logo" class="h-12 w-auto mr-3">
+                <h1 class="text-2xl font-bold">Bihar Swimming Association</h1>
+            </div>
+            <ul class="flex space-x-6 items-center">
+                <li><a href="{% url 'main_page' %}" class="hover:underline">Back to Home</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto py-8">
+        <section class="py-12 text-center">
+            <h2 class="text-3xl font-bold mb-6">Register as an Athlete or Coach</h2>
+            <p class="mb-8">Select your role to begin the registration process.</p>
+            <div class="flex justify-center space-x-6">
+                <a href="{% url 'athlete_registration' %}" class="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 text-lg">
+                    Register as an Athlete
+                </a>
+                <a href="{% url 'coach_registration' %}" class="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 text-lg">
+                    Register as a Coach
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-blue-800 text-white text-center py-6 mt-8">
+        <div>
+            <p>&copy; 2025 Bihar Swimming Association. All rights reserved.</p>
+            <p>Contact: 123, Sports Complex, Patna, Bihar - 800001. | (O) 0612 1234567 | contact@sfb.org.in</p>
+        </div>
+    </footer>
+    <script src="{% static 'sfb/js/scripts.js' %}"></script>
+</body>
+</html>
